@@ -33,8 +33,7 @@ function usage() {
     'Usage:',
     '  node scripts/build-plan-skeleton.cjs --input trip.json',
     '  node scripts/build-plan-skeleton.cjs --input trip.json --output plan.md',
-  ].join('
-');
+  ].join('\n');
 }
 
 function normalizeArray(value) {
@@ -162,18 +161,14 @@ function buildMarkdown(input) {
   lines.push('- Emergency contacts and check-in plan shared');
   lines.push('');
 
-  return `${lines.join('
-')}
-`;
+  return `${lines.join('\n')}\n`;
 }
 
 function main() {
   try {
     const args = parseArgs(process.argv);
     if (!args.input) {
-      process.stderr.write(`Failure: Missing --input
-${usage()}
-`);
+      process.stderr.write(`Failure: Missing --input\n${usage()}\n`);
       process.exit(1);
     }
 
@@ -182,25 +177,22 @@ ${usage()}
     const payload = JSON.parse(raw);
 
     if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
-      process.stderr.write('Failure: Input JSON must be an object.
-');
+      process.stderr.write('Failure: Input JSON must be an object.\n');
       process.exit(1);
     }
 
     const markdown = buildMarkdown(payload);
 
     if (args.output) {
-      const outputPath = path.resolve(.output);
+      const outputPath = path.resolve(args.output);
       fs.writeFileSync(outputPath, markdown, 'utf8');
-      process.stdout.write(`Success: Wrote plan skeleton to ${outputPath}
-`);
+      process.stdout.write(`Success: Wrote plan skeleton to ${outputPath}\n`);
       return;
     }
 
     process.stdout.write(markdown);
   } catch (err) {
-    process.stderr.write(`Failure: ${err.message}
-`);
+    process.stderr.write(`Failure: ${err.message}\n`);
     process.exit(1);
   }
 }
