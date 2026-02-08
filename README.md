@@ -2,6 +2,12 @@
 
 Safety-first camping planning skill for beginners, families, and casual campers.
 
+## Install
+
+```bash
+npx skills add https://github.com/franklins-git/camping-planner --skill camping-planner
+```
+
 This skill helps produce practical trip plans with:
 - risk and safety brief
 - gear and clothing checklist
